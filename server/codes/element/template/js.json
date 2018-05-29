@@ -1,0 +1,9 @@
+{
+  "mounted" : "",
+  "data" : [{
+    "name": "xxx 页面上如果有多个，会在该name值后面加数字",
+    "type": "String|Array",
+    "default": "ddd"
+  }],
+  "methods" : []
+}
