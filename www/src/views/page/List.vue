@@ -16,12 +16,21 @@
         width="80">
       </el-table-column>
       
-        <el-table-column
-          prop="name"
-          label="名称"
+      <el-table-column
+        prop="name"
+        label="名称"
+        >
+        
+      </el-table-column>
+
+      <el-table-column
+          prop="filePath"
+          label="文件路径"
           >
-          
-        </el-table-column>
+        <template slot-scope="scope">
+          @/views/{{scope.row.filePath}}
+        </template>
+      </el-table-column>
         
       <el-table-column
         prop="op"

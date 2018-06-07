@@ -164,6 +164,7 @@ export default {
           model.selectedComponent = model.selectedComponent.map(c => {
             return {
               name: c.name,
+              label: c.label,
               props: c.props,
               slots: c.slots
             }

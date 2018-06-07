@@ -1,7 +1,7 @@
 {
-  "name": "admin-template",
+  "name": "mobile generator",
   "version": "1.2.0",
-  "description": "admin template",
+  "description": "mobile generator",
   "author": "Joel <iamjoel007@gmail.com>",
   "private": true,
   "scripts": {

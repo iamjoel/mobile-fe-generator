@@ -17,7 +17,7 @@
   </el-form>
 
   <div class="ly ly-j">
-    <div>
+    <el-card header="预览" class="mr-20">
       <div class="mb-10">
         <el-radio-group v-model="device" @change="deviceChange">
          <el-radio label="iphone 6">iPhone6/7/8</el-radio>
@@ -72,13 +72,10 @@
           </component>
         </div>
       </draggable>
-    </div>
-    
+    </el-card>
 
     <div class="ops">
-      <!-- 所有组件 -->
-      <div class="panel">
-        <h2>所有组件</h2>
+      <el-card header="所有组件">
         <draggable
           :options="{
             group: {
@@ -98,30 +95,23 @@
             {{c.label}}
           </div>
         </draggable>
-      </div>
+      </el-card>
 
-      <!-- 配置 -->
-      <div class="panel" v-if="currEditComponent">
-        <h2>配置</h2>
-        <div>
-          当前组件: {{currEditComponent.label}}
-        </div>
+      <el-card :header="'当前组件:' + currEditComponent.label" v-if="currEditComponent">
         <div 
+          class="ly ly-m mb-10" 
           v-for="(item, index) in getComponentConfig(currEditComponent)"
           :key="index"
         >
-          <div>{{item.key}}</div>
+          <div class="config__label">{{item.name}}:</div>
           <el-input v-model="currEditComponent.props[item.key]" placeholder="请输入内容" v-if="!item.type"></el-input>
           <el-input v-model.number="currEditComponent.props[item.key]" placeholder="请输入内容" v-if="item.type === 'number'"></el-input>
         </div>
-
-        <div v-if="currEditComponent.slots" class="mt-10">
-          <h3>内部内容</h3>
-          <div>
-            <el-input v-model="currEditComponent.slots[0].content" placeholder="请输入内容"></el-input>
-          </div>
+        <div v-if="currEditComponent.slots" class="ly ly-m mb-10">
+          <div class="config__label">内部内容:</div>
+          <el-input v-model="currEditComponent.slots[0].content" placeholder="请输入内容" type="textarea" :autosize="{ minRows: 2, maxRows: 6}"></el-input>
         </div>
-      </div>
+      </el-card>
     </div>
 
 
