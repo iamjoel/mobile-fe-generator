@@ -20,6 +20,8 @@
 }
 .is-current {
   outline: 1px dashed #f00;
+  position: relative;
+  z-index: 99; /* outline 不被后面的元素遮挡*/
 }
 .is-current .ops-wrap{
   display: block;

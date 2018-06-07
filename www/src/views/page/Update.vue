@@ -25,6 +25,7 @@
         </el-radio-group>
       </div>
       <draggable
+      
         class="preview"
         :style="deviceSize"
         :options="{

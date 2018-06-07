@@ -2,7 +2,7 @@
   "page": [
     {
       "id": "2527e37e-3c14-2fe2-368b-2760e4508017",
-      "updateAt": 1528360102777,
+      "updateAt": 1528362098596,
       "name": "歌手",
       "filePath": "demo/singer",
       "selectedComponent": [
@@ -28,6 +28,26 @@
           "slots": [
             {
               "content": "<h2>xxxx</h2><p>dffffdf</p>"
+            }
+          ]
+        },
+        {
+          "name": "placeholder",
+          "label": "占位",
+          "props": {},
+          "slots": [
+            {
+              "content": "xx组件"
+            }
+          ]
+        },
+        {
+          "name": "placeholder",
+          "label": "占位",
+          "props": {},
+          "slots": [
+            {
+              "content": "xx组件2"
             }
           ]
         }
