@@ -2,7 +2,7 @@
   "page": [
     {
       "id": "2527e37e-3c14-2fe2-368b-2760e4508017",
-      "updateAt": 1528362098596,
+      "updateAt": 1528364294812,
       "name": "歌手",
       "filePath": "demo/singer",
       "selectedComponent": [
@@ -51,7 +51,27 @@
             }
           ]
         }
-      ]
+      ],
+      "isFreeze": 0
+    },
+    {
+      "id": "413a8630-6e92-528d-afc7-e62334d5df76",
+      "updateAt": 1528364287468,
+      "name": "test2",
+      "filePath": "ttt",
+      "selectedComponent": [
+        {
+          "name": "placeholder",
+          "label": "占位",
+          "props": {},
+          "slots": [
+            {
+              "content": "占位组件"
+            }
+          ]
+        }
+      ],
+      "isFreeze": 1
     }
   ]
 }

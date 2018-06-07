@@ -122,12 +122,13 @@ export default {
       this.$refs.form.validate((isValid) => {
         if (isValid) {
           var model = deepClone(this.model)
+          model.isFreeze =  0 // 新增或编辑后是冻结状态
           model.selectedComponent = model.selectedComponent.map(c => {
             return {
               name: c.name,
               label: c.label,
               props: c.props,
-              slots: c.slots
+              slots: c.slots,
             }
           })
           var method = this.$route.params.id == -1 ? addModel : editModel

@@ -1,5 +1,5 @@
 const apiFormat = require('../utils/apiFormat')
-const tableName = 'listPage'
+const tableName = 'page'
 
 const commonCRUD = require
 

@@ -38,7 +38,8 @@
         width="350"
         >
         <template slot-scope="scope">
-          <el-button type="info" size="small" @click="$router.push('/page/update/' + scope.row.id)">编辑</el-button>
+          <el-button type="info" size="small"  v-if="scope.row.isFreeze != 1" @click="$router.push('/page/update/' + scope.row.id)">编辑</el-button>
+          <el-button type="warning" size="small" @click="toggleFreeze(scope.row)">{{scope.row.isFreeze != 1 ? '冻结' : '解冻'}}</el-button>
           <el-button type="danger" size="small" @click="remove(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>

@@ -1,4 +1,5 @@
 import { fetchList, deleteModel } from '@/service/api'
+import {SERVER_PREFIX} from '@/setting'
 
 var searchConditions = {
   name: ''
@@ -28,7 +29,7 @@ export default {
       })
     },
     expendCofigToFile(id) {
-      this.$http.post(`${SERVER_PREFIX}/list-page/expendCofigToFile/${id}`).then(({data})=> {
+      this.$http.post(`${SERVER_PREFIX}/page/expendCofigToFile/${id}`).then(({data})=> {
         this.$message({
           showClose: true,
           message: '操作成功',
@@ -36,6 +37,18 @@ export default {
         })
       })
     },
+    toggleFreeze(row) {
+      this.$http.post(`${SERVER_PREFIX}/page/updateFreeze/${row.id}`, {
+        isFreeze: row.isFreeze == 1 ? 0 : 1
+      }).then(()=> {
+        row.isFreeze = row.isFreeze == 1 ? 0 : 1
+        this.$message({
+          showClose: true,
+          message: '操作成功',
+          type: 'success'
+        })
+      })
+    }
 
   },
   mounted() {
