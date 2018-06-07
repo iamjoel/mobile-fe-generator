@@ -62,6 +62,7 @@ allComponents.forEach((c, index) => {
   allComponentsObj[c.name] = index
 })
 
+var id = 0
 export default {
   mixins: [updateMixin],
   components: {
@@ -85,6 +86,7 @@ export default {
       var c = JSON.parse(evt.item.dataset.data)
       // debugger
       this.selectedComponent.push({
+        id: id++,
         name: c.name,
         label: c.label,
         props: (() => {
@@ -96,6 +98,22 @@ export default {
           return props
         })(),
         slots: c.slots
+      })
+    },
+    deleteComponent(id) {
+      this.selectedComponent = this.selectedComponent.filter(c => c.id !== id)
+    },
+    moveComponent(type, index) {
+      var currC = this.selectedComponent[index]
+      var tarIndex = type === 'up' ? index - 1 : index + 1
+      var tarC = this.selectedComponent[tarIndex]
+      this.selectedComponent = this.selectedComponent.map((c, i) => {
+        if(i === index) {
+          return tarC
+        } else if(i === tarIndex) {
+          return currC
+        }
+        return c
       })
     },
     getComponentConfig(component) {

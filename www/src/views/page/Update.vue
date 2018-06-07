@@ -16,7 +16,8 @@
           group: {
             name: 'component',
             put: 'all', /* 接受的组 */
-          }
+          },
+          ghostClass: 'sortable-ghost'
       }"
       @add="addedComponent"
       v-model="selectedComponent"
@@ -25,7 +26,16 @@
         v-for="(c, index) in selectedComponent"
         :key="index"
         @click="currEditComponent = c"
+        class="component-wrap"
+        :class="{
+          'is-current': currEditComponent && c.id === currEditComponent.id
+        }"
       >
+        <div class="ops-wrap">
+          <i class="el-icon-arrow-up" v-show="index > 0" @click="moveComponent('up', index)"></i>
+          <i class="el-icon-arrow-down" v-show="index < selectedComponent.length - 1" @click="moveComponent('down', index)"></i>
+          <i class="el-icon-delete" @click="deleteComponent(c.id)"></i>
+        </div>
         <component 
           :is="c.name"
           v-bind="c.props"
@@ -49,6 +59,7 @@
       
     </draggable>
     <div class="ops">
+      <!-- 所有组件 -->
       <div class="panel">
         <h2>所有组件</h2>
         <draggable
@@ -72,6 +83,7 @@
         </draggable>
       </div>
 
+      <!-- 配置 -->
       <div class="panel" v-if="currEditComponent">
         <h2>配置</h2>
         <div>
@@ -92,7 +104,6 @@
             <el-input v-model="currEditComponent.slots[0].content" placeholder="请输入内容"></el-input>
           </div>
         </div>
-        
       </div>
     </div>
 
@@ -100,7 +111,6 @@
   </div>
     {{selectedComponent}}
 
-  
   <el-row type="flex" justify="center">
     <el-button @click="$router.go(-1)">返回</el-button>
     <el-button type="success" @click="save" v-if="!isView">保存</el-button>
@@ -109,29 +119,6 @@
 </template>
 
 <script src="./update.js"></script>
-<style scoped>
-.preview {
-  margin-right: 20px;
-  width: 375px;
-  border: 5px solid #ddd;
-  min-height: 600px;
-  overflow-y: auto;
-}
-/*隐藏掉复制的元素*/
-.preview .component{ 
-  display: none;
-}
-.ops {
-  flex-grow: 1;
-}
+<style scoped src="./update.css">
 
-.component {
-  display: inline-block;
-  margin: 10px 10px 10px 0;
-  width: 100px;
-  height: 100px;
-  line-height: 50px;
-  background-color: #ddd;
-
-}
 </style>

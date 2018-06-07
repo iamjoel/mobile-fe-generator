@@ -1,0 +1,45 @@
+.preview {
+  margin-right: 20px;
+  width: 377px;
+  padding: 1px;
+  border: 5px solid #ddd;
+  min-height: 600px;
+  overflow-y: auto;
+}
+/*隐藏掉复制的元素*/
+.preview .component{ 
+  display: none;
+}
+.preview .component-wrap {
+  position: relative;
+}
+.ops-wrap {
+  display: none;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 100;
+}
+.is-current {
+  outline: 1px dashed #f00;
+}
+.is-current .ops-wrap{
+  display: block;
+}
+
+.sortable-ghost {
+  background-color: #0f0;
+  outline: 1px dashed #f00;
+}
+.ops {
+  flex-grow: 1;
+}
+
+.component {
+  display: inline-block;
+  margin: 10px 10px 10px 0;
+  width: 100px;
+  height: 100px;
+  line-height: 50px;
+  background-color: #ddd;
+}
