@@ -1,7 +1,6 @@
 const apiFormat = require('../utils/apiFormat')
 const tableName = 'page'
-
-const commonCRUD = require
+const generatorCode = require('./utils/generatorPageCode')
 
 var config = require('../config')
 const codePathPrefix = `${config.feCodeRootPath}/src/views`
@@ -21,15 +20,19 @@ module.exports = {
         res.send(apiFormat.error({errMsg: '找不到配置'}))
         return
       }
-      var {vue, css, js} = generatorCode()
-      var codePath = `${codePathPrefix}/${config.basic.codePath ? config.basic.codePath : config.basic.entity}`
+
+      var {vue, css, js} = generatorCode(config)
+
+      var codePath = `${codePathPrefix}/${config.filePath}`
+
       Promise.all([
         writeFile(`${codePath}/Index.vue`, vue),
         writeFile(`${codePath}/main.js`, js),
-        writeFile(`${codePath}/.js`, js),
+        writeFile(`${codePath}/style.css`, css),
       ]).then(()=> {
         res.send(apiFormat.success())
       }, error => {
+        console.log(error)
         res.send(apiFormat.error(error))
       })
     } catch(error) {
@@ -55,16 +58,7 @@ module.exports = {
   }
 }
 
-function generatorCode(pageInfo) {
-  var vue = ''
-  var js = ''
-  var css = ''
-  return {
-    vue,
-    js,
-    css
-  }
-}
+
 
 function writeFile(filePath, content) {
   return new Promise((resolve, reject) => {
