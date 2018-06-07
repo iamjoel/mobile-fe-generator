@@ -35,10 +35,6 @@ generateAPI(Object.keys(apis))
 var configApi = require('./api/config')
 app.get('/config/detail', configApi.detail)
 
-app.post('/config/sync/:type', (req, res)=> {
-  configApi.syncConfig(req, res)
-})
-
 var pageApi = require('./api/page')
 app.post('/page/expendCofigToFile/:id', (req, res)=> {
   pageApi.expendCofigToFile(req, res)

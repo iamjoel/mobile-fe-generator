@@ -6,7 +6,12 @@ export const setUser = ({ commit }, user) => {
   commit(types.USER_INFO, user)
 }
 
-var sysMenu = []
+var sysMenu = [{
+  id: 'dashboard',
+  name: '仪表盘',
+  path: '/'
+}]
+
 import configMenus from '@/setting/base/menu'
 var menus = [...sysMenu, ...configMenus]
 
