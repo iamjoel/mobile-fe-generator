@@ -27,7 +27,7 @@ app.all('*', function(req, res, next) {
 
 // 所有的api
 var apis = {
-  page: require('./api/utils/commonCRUD')('dict'),
+  page: require('./api/utils/commonCRUD')('page'),
 }
 
 generateAPI(Object.keys(apis))

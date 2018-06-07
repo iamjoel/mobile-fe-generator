@@ -1,20 +1,42 @@
-import updateMixin from '@/mixin/update'
+import JEditItem from '@/components/edit-item'
 import deepClone from 'clone'
 import draggable from 'vuedraggable'
+import {fetchList, fetchModel, addModel, editModel} from '@/service/api' 
 
 var model = {
-	"moreInfo": {},
-	"name": null
+	"name": null,
+  "filePath": null,
+  selectedComponent: []
 }
 var rules = {
 	"name": [
-		{ required: true, message: '请输入歌手名称', trigger: 'blur' }
-	]
+		{ required: true, message: '请输入页面名称', trigger: 'blur' }
+	],
+  "filePath": [
+    { required: true, message: '请输入文件路径', trigger: 'blur' }
+  ],
+}
+
+var OUTLINE_WIDTH = 1
+var DEVICE = {
+  'iphone 5': {
+    width: `${320 + 2 * OUTLINE_WIDTH}px`,
+    height: '480px',
+  },
+  'iphone 6': {
+    width: `${375 + 2 * OUTLINE_WIDTH}px`,
+    height: '667px',
+  },
+}
+
+var DEVICE_REM = {
+  'iphone 5': '50px',
+  'iphone 6': '58.59375px',
 }
 
 import Media from '@/components/media'
 
-// slot 的设置 todo
+// obj.key
 var allComponents = [
 {
   name: 'van-swipe',
@@ -62,10 +84,11 @@ allComponents.forEach((c, index) => {
   allComponentsObj[c.name] = index
 })
 
+// 生成唯一的组件id
 var id = 0
 export default {
-  mixins: [updateMixin],
   components: {
+    JEditItem,
     draggable,
     Media
   },
@@ -75,17 +98,19 @@ export default {
       model,
       allComponentsObj,
       allComponents,
-      selectedComponent: [],
       currEditComponent: null, // 当前编辑的组件
       rules,
+      device: 'iphone 6',
+      deviceSize: {}
     }  
   },
+
   methods: {
     addedComponent(evt) {
       // debugger
       var c = JSON.parse(evt.item.dataset.data)
       // debugger
-      this.selectedComponent.push({
+      this.model.selectedComponent.push({
         id: id++,
         name: c.name,
         label: c.label,
@@ -101,13 +126,13 @@ export default {
       })
     },
     deleteComponent(id) {
-      this.selectedComponent = this.selectedComponent.filter(c => c.id !== id)
+      this.model.selectedComponent = this.model.selectedComponent.filter(c => c.id !== id)
     },
     moveComponent(type, index) {
-      var currC = this.selectedComponent[index]
+      var currC = this.model.selectedComponent[index]
       var tarIndex = type === 'up' ? index - 1 : index + 1
-      var tarC = this.selectedComponent[tarIndex]
-      this.selectedComponent = this.selectedComponent.map((c, i) => {
+      var tarC = this.model.selectedComponent[tarIndex]
+      this.model.selectedComponent = this.model.selectedComponent.map((c, i) => {
         if(i === index) {
           return tarC
         } else if(i === tarIndex) {
@@ -119,30 +144,48 @@ export default {
     getComponentConfig(component) {
       return this.allComponents[allComponentsObj[component.name]].config
     },
-    formatFetchData(model) {
-      model = deepClone(model)
-      
-      // 下拉框赋值
-      if(!this.isView) {
-        
-      } else {
-        var dictModelCols = [] || []
-        dictModelCols.length > 0 && dictModelCols.forEach(col => {
-          model[col.key] = this.getDictName(col.dictKey, model[col.key])
+    deviceChange() {
+      this.deviceSize = DEVICE[this.device]
+      window.document.documentElement.style.fontSize = DEVICE_REM[this.device]
+    },
+    fetchDetail() {
+      fetchModel(this.KEY, this.$route.params.id).then(({data}) => {
+        this.model = data.data
+        this.model.selectedComponent = this.model.selectedComponent.map(c => {
+          c.id = id++
+          return c
         })
-      }
-      return model
+      })
     },
-    formatSaveData() {
-      var model = deepClone(this.model)
+    save() {
+      this.$refs.form.validate((isValid) => {
+        if (isValid) {
+          var model = deepClone(this.model)
+          model.selectedComponent = model.selectedComponent.map(c => {
+            return {
+              name: c.name,
+              props: c.props,
+              slots: c.slots
+            }
+          })
+          var method = this.$route.params.id == -1 ? addModel : editModel
+          method(this.KEY, model).then(()=> {
+            this.$message({
+              showClose: true,
+              message: '保存成功',
+              type: 'success'
+            })
+            this.$router.go(-1)
+          })
+        }
+      })
       
-      delete model.moreInfo // 表关联的数据
-      return model
-    },
-    
-    
+    }
   },
   mounted() {
-    
+    if(this.$route.params.id != -1) {
+      this.fetchDetail()
+    }
+    this.deviceChange()
   }
 }

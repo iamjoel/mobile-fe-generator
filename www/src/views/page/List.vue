@@ -29,8 +29,8 @@
         width="350"
         >
         <template slot-scope="scope">
-          <el-button type="info" size="small" @click="$router.push(editPagePath(scope.row.id))" v-if="isShow('edit')">编辑</el-button>
-          <el-button type="danger" size="small" @click="remove(scope.row.id)" v-if="isShow('delete')">删除</el-button>
+          <el-button type="info" size="small" @click="$router.push('/page/update/' + scope.row.id)">编辑</el-button>
+          <el-button type="danger" size="small" @click="remove(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
       

@@ -1,9 +1,7 @@
 .preview {
   margin-right: 20px;
-  width: 377px;
   padding: 1px;
   border: 5px solid #ddd;
-  min-height: 600px;
   overflow-y: auto;
 }
 /*隐藏掉复制的元素*/
@@ -40,6 +38,9 @@
   margin: 10px 10px 10px 0;
   width: 100px;
   height: 100px;
-  line-height: 50px;
+  line-height: 100px;
+  text-align: center;
   background-color: #ddd;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
 }
