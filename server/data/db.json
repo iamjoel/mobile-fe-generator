@@ -2,22 +2,10 @@
   "page": [
     {
       "id": "2527e37e-3c14-2fe2-368b-2760e4508017",
-      "updateAt": 1528364294812,
+      "updateAt": 1528425101963,
       "name": "歌手",
       "filePath": "demo/singer",
       "selectedComponent": [
-        {
-          "name": "van-swipe",
-          "label": "幻灯",
-          "props": {},
-          "slots": [
-            {
-              "isList": true,
-              "componentName": "van-swipe-item",
-              "content": "<img src=\"http://via.placeholder.com/200x100\" alt=\"\" style=\"width:100%\"/>"
-            }
-          ]
-        },
         {
           "name": "media",
           "label": "Media",
@@ -28,6 +16,18 @@
           "slots": [
             {
               "content": "<h2>xxxx</h2><p>dffffdf</p>"
+            }
+          ]
+        },
+        {
+          "name": "van-swipe",
+          "label": "幻灯",
+          "props": {},
+          "slots": [
+            {
+              "isList": true,
+              "componentName": "van-swipe-item",
+              "content": "<img src=\"http://via.placeholder.com/200x100\" alt=\"\" style=\"width:100%\"/>"
             }
           ]
         },
